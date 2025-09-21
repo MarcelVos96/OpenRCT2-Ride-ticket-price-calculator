@@ -1,8 +1,11 @@
+import { mainWindow } from "./mainWindow";
+import { pluginName } from "./plugin";
+
 function onClickMenuItem()
 {
 	// Write code here that should happen when the player clicks the menu item under the map icon.
 
-	console.log("Hello world!");
+	mainWindow.open()
 }
 
 
@@ -15,6 +18,6 @@ export function startup()
 	// Register a menu item under the map icon:
 	if (typeof ui !== "undefined")
 	{
-		ui.registerMenuItem("My plugin", () => onClickMenuItem());
+		ui.registerMenuItem(pluginName, () => onClickMenuItem());
 	}
 }

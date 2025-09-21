@@ -2,12 +2,14 @@
 
 import { startup } from "./startup";
 
+export const pluginName = "Ride ticket price calculator"
+
 registerPlugin({
-	name: "Name of your plugin",
-	version: "1.0",
-	authors: [ "Your name" ],
-	type: "remote",
-	licence: "MIT",
+	name: pluginName,
+	version: "0.0-dev",
+	authors: [ "LordMarcel", "tygrysek90" ],
+	type: "local",
+	licence: "GPL-3.0-only",
 	/**
 	 * This field determines which OpenRCT2 API version to use. It's best to always use the
 	 * latest release version, unless you want to use specific versions from a newer develop
