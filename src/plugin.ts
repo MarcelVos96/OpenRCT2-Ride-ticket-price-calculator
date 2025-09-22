@@ -1,12 +1,12 @@
 /// <reference path="../lib/openrct2.d.ts" />
 
+import { pluginName } from "./pluginName";
+import { pluginVersion } from "./pluginVersion";
 import { startup } from "./startup";
-
-export const pluginName = "Ride ticket price calculator"
 
 registerPlugin({
 	name: pluginName,
-	version: "0.0-dev",
+	version: pluginVersion,
 	authors: [ "LordMarcel", "tygrysek90" ],
 	type: "local",
 	licence: "GPL-3.0-only",

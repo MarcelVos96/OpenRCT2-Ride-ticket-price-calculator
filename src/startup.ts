@@ -1,10 +1,26 @@
+import { loadDataInDropDown } from "./uiActions";
 import { mainWindow } from "./mainWindow";
-import { pluginName } from "./plugin";
+import { pluginName } from "./pluginName";
 
-function onClickMenuItem()
+/**
+ * Starting point
+ */
+
+
+/** Some nice shortcut, for fast window opening, very feastible for development */
+const shortcutOpenWindow: ShortcutDesc = {
+	id: "ride-ticket-price-calculator.open",
+	text: pluginName,
+	bindings: ["ALT+E"],
+	callback() {
+		onPluginGUIopen()		
+	}
+}
+
+
+function onPluginGUIopen()
 {
-	// Write code here that should happen when the player clicks the menu item under the map icon.
-
+	loadDataInDropDown()
 	mainWindow.open()
 }
 
@@ -12,12 +28,12 @@ function onClickMenuItem()
 export function startup()
 {
 	// Write code here that should happen on startup of the plugin.
-
+	ui.registerShortcut(shortcutOpenWindow)
 
 
 	// Register a menu item under the map icon:
 	if (typeof ui !== "undefined")
 	{
-		ui.registerMenuItem(pluginName, () => onClickMenuItem());
+		ui.registerMenuItem(pluginName, () => onPluginGUIopen());
 	}
 }

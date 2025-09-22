@@ -1,3 +1,5 @@
+TODO: Edit readme 
+
 # Simple OpenRCT2 plugin template with Typescript
 
 A simple and minimal template for OpenRCT2 plugins, using Typescript, without any unnecessary extra's.
