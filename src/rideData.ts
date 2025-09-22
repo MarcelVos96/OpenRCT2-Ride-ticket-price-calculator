@@ -9,7 +9,7 @@ RideType
 }
 
 /**
- * Stores LordMarcel calculation data
+ * Stores Marcel's calculation data
  * Tastes best when used with rideTableCol enum for naming columns,
  * e.g.: "rideDataArray[rideTableCol.Excitement]"
  */

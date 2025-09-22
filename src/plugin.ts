@@ -7,7 +7,7 @@ import { startup } from "./startup";
 registerPlugin({
 	name: pluginName,
 	version: pluginVersion,
-	authors: [ "LordMarcel", "tygrysek90" ],
+	authors: [ "Marcel Vos", "tygrysek90" ],
 	type: "local",
 	licence: "GPL-3.0-only",
 	/**

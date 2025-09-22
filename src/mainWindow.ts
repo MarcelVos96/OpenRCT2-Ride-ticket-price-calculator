@@ -95,7 +95,7 @@ export const mainWindow = window({
                     padding: {top: -4},
                     alignment: "centred",
                     disabled: true,
-                    text: "LordMarcel & tygrysek90 (c) 2025"
+                    text: "Marcel Vos & tygrysek90 (c) 2025"
                 })
             ]
         })
