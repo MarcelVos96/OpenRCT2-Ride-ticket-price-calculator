@@ -33,6 +33,7 @@ function onPluginGUIopen()
 {
 	loadDataInDropDown()
 	mainWindow.open()
+	callCalcAndUpdatePrices()
 }
 
 
