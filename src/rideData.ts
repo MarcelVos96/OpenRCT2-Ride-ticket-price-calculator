@@ -93,3 +93,19 @@ export const rideDataArray: Array<[string, number, number, number, number]> = [
     ["Wooden Coaster", 52 ,33 ,8, -1],
     ["Wooden Wild Mouse", 50 ,30 ,30, -1],
 ]
+
+/**
+ * Stores age data
+ */
+export const rideAgeArray: Array<[number, number, number, number]> = [
+    [0, 1 ,1 ,30],
+    [5, 1 ,1 ,10],
+    [13, 1 ,1 ,0],
+    [40, 3 ,4 ,0],
+    [64, 9 ,16 ,0],
+    [88, 27 ,64 ,0],
+    [104, 81 ,256 ,0],
+    [120, 81 ,512 ,0],
+    [128, 81 ,1024 ,0],
+    [200, 9 ,16 ,0],
+]

@@ -5,7 +5,7 @@
  */
 
 import { PricesArray } from "./commonTypes"
-import { rideDataArray, rideTableCol } from "./rideData"
+import { rideDataArray, rideTableCol, rideAgeArray } from "./rideData"
 
 /**
  * 
@@ -20,9 +20,18 @@ import { rideDataArray, rideTableCol } from "./rideData"
 export function calculateRidePrices(ride: number, e: number, i: number, n: number, multipleSame: boolean, entranceCharge: boolean): PricesArray{
     console.log(`fn calculateRidePrices (${ride}, ${e}, ${i}, ${n}, ${multipleSame}, ${entranceCharge})`)
 
-    let nameThisAsYouLike: PricesArray
+    let maxPrices: PricesArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-    nameThisAsYouLike = [1.11111, 2.2222222,3.321 ,4, 5,6,7,8,9,0]
+    for (let i = 0; i < maxPrices.length; i++) {
+        let rideValue:number = 0
+        rideValue += Math.floor(rideDataArray[ride][1] * e * 100 / 1024)
+        rideValue += Math.floor(rideDataArray[ride][2] * i * 100 / 1024)
+        rideValue += Math.floor(rideDataArray[ride][3] * n * 100 / 1024)
+        rideValue = Math.floor(rideValue * rideAgeArray[i][1] / rideAgeArray[i][2] + rideAgeArray[i][3])
+        if (multipleSame) rideValue -= Math.floor(rideValue / 4)
+        if (entranceCharge) rideValue = Math.floor(rideValue / 4)
+        maxPrices[i] = rideValue * 2 / 10
+    }
 
     // example of sourcing data
     console.log("fn calculateRidePrices middle: " + [ rideDataArray[ride][rideTableCol.RideName], rideDataArray[ride][rideTableCol.Excitement], 
@@ -30,6 +39,6 @@ export function calculateRidePrices(ride: number, e: number, i: number, n: numbe
 
     /// do whatever you desire
 
-    console.log(`fn calculateRidePrices returns ${nameThisAsYouLike}`)
-    return nameThisAsYouLike
+    console.log(`fn calculateRidePrices returns ${maxPrices}`)
+    return maxPrices
 }
