@@ -94,6 +94,14 @@ export const rideDataArray: Array<[string, number, number, number, number]> = [
     ["Wooden Wild Mouse", 50 ,30 ,30, -1],
 ]
 
+export enum ageTableCol  {
+/** Human readable name */
+Age,
+Multiplier,
+Divisor,
+Addition
+}
+
 /**
  * Stores age data
  */
