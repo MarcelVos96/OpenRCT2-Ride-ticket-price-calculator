@@ -29,7 +29,7 @@ function isEinInputValid(): boolean {
 }
 
 /** Passes argument to calculating part, updates price list in UI */
-function callCalcAndUpdatePrices() {
+export function callCalcAndUpdatePrices() {
     let newPrices = calculateRidePrices(viewModel.rideSelected.get(),
         einInputGuarded[einEnum.excitement], einInputGuarded[einEnum.intensity], einInputGuarded[einEnum.nausea],
         viewModel.multipleCheck.get(), viewModel.entranceFeeCheck.get())
@@ -95,4 +95,8 @@ export function onEINChange(textInput: string, which: einEnum) {
 
     }
 
+}
+
+export function onCheckboxChange() {
+    callCalcAndUpdatePrices()
 }

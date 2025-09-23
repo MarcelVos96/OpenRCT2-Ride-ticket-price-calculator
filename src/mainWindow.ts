@@ -1,7 +1,7 @@
 import { checkbox, Colour, dropdown, groupbox, horizontal, label, listview, textbox, twoway, vertical, window } from "openrct2-flexui";
 import { viewModel } from "./viewModel";
 import { einEnum } from "./commonTypes";
-import { onEINChange, onRideDropDownChange } from "./uiActions";
+import { onEINChange, onRideDropDownChange, onCheckboxChange } from "./uiActions";
 
 /**
  * User interface shape definition
@@ -74,11 +74,13 @@ export const mainWindow = window({
             content: [
                 checkbox({
                     text: "multiple of this ride type in the park",
-                    isChecked: twoway(viewModel.multipleCheck)
+                    isChecked: twoway(viewModel.multipleCheck),
+                    onChange: () => onCheckboxChange()
                 }),
                 checkbox({
                     text: "charge for the park entrance",
-                    isChecked: twoway(viewModel.entranceFeeCheck)
+                    isChecked: twoway(viewModel.entranceFeeCheck),
+                    onChange: () => onCheckboxChange()
                 })
             ]
         }), 

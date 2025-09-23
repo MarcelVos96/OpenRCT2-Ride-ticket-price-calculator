@@ -1,6 +1,7 @@
 import { loadDataInDropDown } from "./uiActions";
 import { mainWindow } from "./mainWindow";
 import { pluginName } from "./pluginName";
+import { callCalcAndUpdatePrices } from "./uiActions";
 import { activateTool } from "./tool";
 
 /**
