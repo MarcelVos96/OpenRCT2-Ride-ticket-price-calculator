@@ -37,7 +37,7 @@ export const mainWindow = window({
             padding: {top: 16},
             content: [
                 label({
-                    text: "Excitement rating:"
+                    text: viewModel.einLabels[einEnum.excitement]
                 }),
                 textbox({
                     text: "0.00",
@@ -48,7 +48,7 @@ export const mainWindow = window({
         horizontal({
             content: [
                 label({
-                    text: "Intensity rating:",
+                    text: viewModel.einLabels[einEnum.intensity]
                 }),
                 textbox({
                     text: "0.00",
@@ -59,7 +59,7 @@ export const mainWindow = window({
         horizontal({
             content: [
                 label({
-                    text: "Nausea rating:"
+                    text: viewModel.einLabels[einEnum.nausea]
                 }),
                 textbox({
                     text: "0.00",

@@ -1,6 +1,6 @@
 import { calculateRidePrices } from "./calcFunctions";
-import { viewModel } from "./viewModel";
-import { einEnum } from "./commonTypes";
+import { viewDefaults, viewModel } from "./viewModel";
+import { einEnum, errorColorCode } from "./commonTypes";
 import { rideDataArray, rideTableCol } from "./rideData";
 
 /**
@@ -10,6 +10,7 @@ import { rideDataArray, rideTableCol } from "./rideData";
 
 /** EIN input fields converted to numbers, since GUI input is "text" field - gives string, e.g. "chicken" or "1.0"*/
 var einInputGuarded: [number, number, number] = [0,0,0]
+
 
 /** Passes argument to calculating part, updates price list in UI */
 function callCalcAndUpdatePrices() {
@@ -50,6 +51,11 @@ export function onEINChange(textInput: string, which: einEnum) {
     console.log(`ein change ${textInput}, in ${einEnum[which]}`)
     if ( Number(textInput) >= 0 ) {
         einInputGuarded[which] = Number(textInput)
+        viewModel.einLabels[which].set(viewDefaults.einLabels[which])
+    }
+    else {
+        viewModel.einLabels[which].set(errorColorCode+viewDefaults.einLabels[which])
     }
     callCalcAndUpdatePrices()
+
 }

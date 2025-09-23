@@ -18,3 +18,6 @@ export enum einEnum {
     intensity,
     nausea
 }
+
+/** OpenRCT2 string {} to be used when showing something wrong */
+export const errorColorCode = "{LIGHTPINK}"
