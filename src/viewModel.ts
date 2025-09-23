@@ -9,16 +9,16 @@ export const viewDefaults = {
     ],
 
     pricesTable: [
-        ["0-5 months","+30", ""],	
-        ["5-13 months", "+10", ""],	
-        ["13-40 months", "×1.00", ""],	
-        ["40-64 months", "×0.75", ""],	
-        ["64-88 months", "×0.56", ""]	,
-        ["88-104 months", "×0.42", ""], 	
-        ["104-120 months", "×0.32", ""],	
-        ["120-128 months", "×0.16", ""],	
-        ["128-200 months", "×0.08", ""],	
-        ["200+ months", "×0.56", ""]
+        ["0-5 months","+30", context.formatString("{CURRENCY2DP}", "0")],	
+        ["5-13 months", "+10", context.formatString("{CURRENCY2DP}", "0")],	
+        ["13-40 months", "×1.00", context.formatString("{CURRENCY2DP}", "0")],	
+        ["40-64 months", "×0.75", context.formatString("{CURRENCY2DP}", "0")],	
+        ["64-88 months", "×0.56", context.formatString("{CURRENCY2DP}", "0")]	,
+        ["88-104 months", "×0.42", context.formatString("{CURRENCY2DP}", "0")], 	
+        ["104-120 months", "×0.32", context.formatString("{CURRENCY2DP}", "0")],	
+        ["120-128 months", "×0.16", context.formatString("{CURRENCY2DP}", "0")],	
+        ["128-200 months", "×0.08", context.formatString("{CURRENCY2DP}", "0")],	
+        ["200+ months", "×0.56", context.formatString("{CURRENCY2DP}", "0")]
     ],
 
     pricesTableErrorPrice: `${errorColorCode}?` 

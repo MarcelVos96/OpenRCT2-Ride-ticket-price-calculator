@@ -37,7 +37,7 @@ export function callCalcAndUpdatePrices() {
     let newPriceTable = viewDefaults.pricesTable.slice()
     
     for (let i = 0; i < 10; i++) {
-        newPriceTable[i][2] = newPrices[i].toString()
+        newPriceTable[i][2] = context.formatString("{CURRENCY2DP}", newPrices[i])
     }
 
     viewModel.pricesTable.set(newPriceTable)

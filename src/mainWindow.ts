@@ -86,8 +86,8 @@ export const mainWindow = window({
         }), 
         // PRICE LIST
         listview({
-            columns: ["Ride age", "Age value", "Maximum ticket price"],
-            items: viewModel.pricesTable
+            columns: [{header: "Ride age", ratioWidth: 5}, {header: "Age value", ratioWidth: 3}, {header: "Max ticket price", ratioWidth: 4}],
+            items: viewModel.pricesTable,
         }),
         // ABOUT BOX
         groupbox({

@@ -30,7 +30,7 @@ export function calculateRidePrices(ride: number, ex: number, int: number, na: n
         rideValue = Math.floor(rideValue * rideAgeArray[i][ageTableCol.Multiplier] / rideAgeArray[i][ageTableCol.Divisor] + rideAgeArray[i][ageTableCol.Addition])
         if (multipleSame) rideValue -= Math.floor(rideValue / 4)
         if (entranceCharge) rideValue = Math.floor(rideValue / 4)
-        maxPrices[i] = rideValue * 2 / 10
+        maxPrices[i] = rideValue * 2
     }
 
     // example of sourcing data
