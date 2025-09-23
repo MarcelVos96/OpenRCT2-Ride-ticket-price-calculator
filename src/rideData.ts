@@ -9,7 +9,7 @@ RideType
 }
 
 /**
- * Stores Marcel's calculation data
+ * Stores ride stat values
  * Tastes best when used with rideTableCol enum for naming columns,
  * e.g.: "rideDataArray[rideTableCol.Excitement]"
  */
@@ -103,7 +103,7 @@ Addition
 }
 
 /**
- * Stores age data
+ * Stores ride age values
  */
 export const rideAgeArray: Array<[number, number, number, number]> = [
     [0, 1 ,1 ,30],
