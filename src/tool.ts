@@ -4,6 +4,9 @@
 
 const tileSize = 32
 
+/**
+ * activates the ride selection tool
+ */
 export function activateTool(): void
 	{
 		ui.activateTool({
@@ -13,7 +16,7 @@ export function activateTool(): void
             onUp: (e: ToolEventArgs) => onToolUp(e)
 		});
 
-		console.log(`Tool: activated.`);
+		//console.log(`Tool: activated.`);
 	}
 
 function onToolUp(e: ToolEventArgs) {
@@ -21,9 +24,11 @@ function onToolUp(e: ToolEventArgs) {
         // .mapCoords are 32 times multiple of actual tile number
         let element = map.getTile(e.mapCoords.x/tileSize, e.mapCoords.y/tileSize).getElement(e.tileElementIndex) as TrackElement //it can be Entrance as well
         let ride = map.getRide(element.ride)
-
-        // create a call to function in actions.ts here, a function will accept parameters shown up here
-        console.log(`found ride:  id (within park) ${element.ride}, named: ${ride.name} \n internal type id ${ride.type}, EIN: ${ride.excitement/100}, ${ride.intensity/100}, ${ride.nausea/100}`)
+        if (ride.classification == "ride") {
+            // create a call to function in actions.ts here, that can accept some of these arguments shown below, 
+            // then comment out the line console.log line 
+            console.log(`found ride:  id (within park) ${element.ride}, named: ${ride.name} \n internal type id ${ride.type}, EIN: ${ride.excitement/100}, ${ride.intensity/100}, ${ride.nausea/100}`)
+        }
     }
     
     
