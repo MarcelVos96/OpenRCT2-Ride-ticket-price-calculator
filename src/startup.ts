@@ -1,6 +1,7 @@
 import { loadDataInDropDown } from "./uiActions";
 import { mainWindow } from "./mainWindow";
 import { pluginName } from "./pluginName";
+import { activateTool } from "./tool";
 
 /**
  * Starting point
@@ -17,6 +18,15 @@ const shortcutOpenWindow: ShortcutDesc = {
 	}
 }
 
+const shortcutOpenWindowAndTool: ShortcutDesc = {
+	id: "ride-ticket-price-calculator.tool-open",
+	text: pluginName,
+	bindings: ["CTRL+SHIFT+E"],
+	callback() {
+		onPluginGUIopen()		
+		activateTool()
+	}
+}
 
 function onPluginGUIopen()
 {
@@ -29,6 +39,7 @@ export function startup()
 {
 	// Write code here that should happen on startup of the plugin.
 	ui.registerShortcut(shortcutOpenWindow)
+	ui.registerShortcut(shortcutOpenWindowAndTool)
 
 
 	// Register a menu item under the map icon:
