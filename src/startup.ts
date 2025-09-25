@@ -1,4 +1,4 @@
-import { loadDataInDropDown } from "./uiActions";
+import { loadDataInDropDown, loadParkRidesInDropDown } from "./uiActions";
 import { mainWindow } from "./mainWindow";
 import { pluginName } from "./pluginName";
 import { callCalcAndUpdatePrices } from "./uiActions";
@@ -32,6 +32,7 @@ const shortcutOpenWindowAndTool: ShortcutDesc = {
 function onPluginGUIopen()
 {
 	loadDataInDropDown()
+	loadParkRidesInDropDown()
 	mainWindow.open()
 	callCalcAndUpdatePrices()
 }

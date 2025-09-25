@@ -4,7 +4,7 @@
  * can return within-park ID of ride based on its name
  */
 
-enum ridesInParkCol {
+export enum ridesInParkCol {
     inParkId,
     rideName
 }
@@ -12,7 +12,7 @@ enum ridesInParkCol {
 /**
  * contains in park ID paired with name of the ride (eg. "Merry-go-around 1" or "Woodchiper")
  */
-var ridesInPark = Array<[number, string]>(0)
+export var ridesInPark = Array<[number, string]>(0)
 
 /**
  * Useful for ui - creates sorted list of ride names and stores their bindings to park ids in this module
@@ -23,6 +23,7 @@ export function getRideListNames(): string[] {
     map.rides.forEach(ride => {
         if (ride.classification == "ride") {
             ridesInPark.push([ride.id, ride.name])
+            console.log("Ride ID & name:", ride.id, ride.name)
         }
     })
     let nameList: string[] = []

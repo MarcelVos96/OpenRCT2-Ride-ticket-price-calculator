@@ -2,6 +2,8 @@ import { calculateRidePrices } from "./calcFunctions";
 import { viewDefaults, viewModel } from "./viewModel";
 import { einEnum, errorColorCode } from "./commonTypes";
 import { rideDataArray, rideTableCol } from "./rideData";
+import { getRideListNames, ridesInPark, ridesInParkCol } from "./rideList";
+import { getEin } from "./getEin";
 
 /**
  * User interface actions
@@ -58,15 +60,39 @@ function showErrorInPricesTable(){
 
 /** Loads Ride names into UI */
 export function loadDataInDropDown() {
-    let ridelist: string[] = []
+    let rideList: string[] = []
 
     rideDataArray.forEach(record => {
-        ridelist.push(record[rideTableCol.RideName])
+        rideList.push(record[rideTableCol.RideName])
     })
 
     rideDataArray[rideTableCol.Excitement]
 
-    viewModel.rideList.set(ridelist)
+    viewModel.rideList.set(rideList)
+}
+
+export function loadParkRidesInDropDown() {
+    let parkRideList: string[] = getRideListNames()
+    viewModel.parkRideList.set(parkRideList)
+}
+
+export function onParkRideDropDownChange() {
+    let rideID: number = 0
+    let rideName: String = viewModel.parkRideList.get()[viewModel.parkRideSelected.get()]
+    for (let i = 0; i < ridesInPark.length; i++) {
+        if (ridesInPark[i][ridesInParkCol.rideName] == rideName) {
+            rideID = ridesInPark[i][ridesInParkCol.inParkId]
+        }
+    }
+    console.log('Ride ID: ', rideID)
+    let rideEIN: [number, number, number] | undefined = getEin(rideID)
+    if (rideEIN != undefined) {
+        einInputGuarded = rideEIN
+        console.log('Ride picked with stats: ', rideEIN[0], rideEIN[1], rideEIN[2])
+    }
+    if (isEinInputValid()) {
+        callCalcAndUpdatePrices()
+    }
 }
 
 export function onRideDropDownChange() {
@@ -80,7 +106,7 @@ export function onRideDropDownChange() {
 export function onEINChange(textInput: string, which: einEnum) {
     console.log(`ein change ${textInput}, in ${einEnum[which]}`)
     if ( Number(textInput) >= 0 ) {
-        einInputGuarded[which] = Number(textInput)
+        einInputGuarded[which] = Number(textInput) * 100
         viewModel.einLabels[which].set(viewDefaults.einLabels[which])
         isEinInputClean[which] = true
         console.log(isEinInputClean, einInputClean)

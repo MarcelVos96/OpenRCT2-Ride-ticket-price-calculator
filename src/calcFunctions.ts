@@ -23,9 +23,9 @@ export function calculateRidePrices(ride: number, ex: number, int: number, na: n
     let maxPrices: PricesArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     for (let i = 0; i < maxPrices.length; i++) {
-        let excitementValue:number = Math.floor(rideDataArray[ride][rideTableCol.Excitement] * ex * 100 / 1024)
-        let intensityValue:number = Math.floor(rideDataArray[ride][rideTableCol.Intensity] * int * 100 / 1024)
-        let nauseaValue:number = Math.floor(rideDataArray[ride][rideTableCol.Nausea] * na * 100 / 1024)
+        let excitementValue:number = Math.floor(rideDataArray[ride][rideTableCol.Excitement] * ex / 1024)
+        let intensityValue:number = Math.floor(rideDataArray[ride][rideTableCol.Intensity] * int / 1024)
+        let nauseaValue:number = Math.floor(rideDataArray[ride][rideTableCol.Nausea] * na / 1024)
         let rideValue:number = excitementValue + intensityValue + nauseaValue
         rideValue = Math.floor(rideValue * rideAgeArray[i][ageTableCol.Multiplier] / rideAgeArray[i][ageTableCol.Divisor] + rideAgeArray[i][ageTableCol.Addition])
         if (multipleSame) rideValue -= Math.floor(rideValue / 4)

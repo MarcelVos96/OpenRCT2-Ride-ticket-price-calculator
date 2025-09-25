@@ -26,7 +26,9 @@ export const viewDefaults = {
 
 export const viewModel = {
     rideList: store<string[]>(["error", "data", "not", "loaded"]),
+    parkRideList: store<string[]>(["error", "data", "not", "loaded"]),
     rideSelected: store<number>(0),
+    parkRideSelected: store<number>(0),
 
     einLabels: [
         store<string>(viewDefaults.einLabels[0].slice()),

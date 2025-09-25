@@ -1,7 +1,7 @@
 import { checkbox, Colour, dropdown, groupbox, horizontal, label, listview, textbox, twoway, vertical, window } from "openrct2-flexui";
 import { viewModel } from "./viewModel";
 import { einEnum } from "./commonTypes";
-import { onEINChange, onRideDropDownChange, onCheckboxChange } from "./uiActions";
+import { onEINChange, onParkRideDropDownChange, onRideDropDownChange, onCheckboxChange } from "./uiActions";
 
 /**
  * User interface shape definition
@@ -9,6 +9,8 @@ import { onEINChange, onRideDropDownChange, onCheckboxChange } from "./uiActions
 
 
 const windowColour = Colour.DarkBrown
+
+
 
 export const mainWindow = window({
     title: "Ride ticket price calculator",
@@ -19,8 +21,22 @@ export const mainWindow = window({
     height: 350,
     colours: [windowColour, windowColour],
     content: [
+        // SELECT RIDE IN PARK
+        horizontal({
+            content: [
+                label({
+                    text: "Select ride in park:"
+                }),
+                dropdown({
+                    items: viewModel.parkRideList,
+                    onChange: () => onParkRideDropDownChange(),
+                    selectedIndex: twoway(viewModel.parkRideSelected)
+                })
+            ]
+        }),
         // RIDE TYPE
         horizontal({
+            padding: {top: 16},
             content: [
                 label({
                     text: "Ride type:"
@@ -34,7 +50,6 @@ export const mainWindow = window({
         }),
         // EIN BLOCK START
         horizontal({
-            padding: {top: 16},
             content: [
                 label({
                     text: viewModel.einLabels[einEnum.excitement]
