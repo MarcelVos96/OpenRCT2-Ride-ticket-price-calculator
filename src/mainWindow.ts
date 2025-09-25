@@ -55,7 +55,7 @@ export const mainWindow = window({
                     text: viewModel.einLabels[einEnum.excitement]
                 }),
                 textbox({
-                    text: "0.00",
+                    text: viewModel.einRatings[einEnum.excitement],
                     onChange: (text: string) => onEINChange(text, einEnum.excitement)
                 })
             ]
@@ -66,7 +66,7 @@ export const mainWindow = window({
                     text: viewModel.einLabels[einEnum.intensity]
                 }),
                 textbox({
-                    text: "0.00",
+                    text: viewModel.einRatings[einEnum.intensity],
                     onChange: (text: string) => onEINChange(text, einEnum.intensity)
                 })
             ]
@@ -77,7 +77,7 @@ export const mainWindow = window({
                     text: viewModel.einLabels[einEnum.nausea]
                 }),
                 textbox({
-                    text: "0.00",
+                    text: viewModel.einRatings[einEnum.nausea],
                     onChange: (text: string) => onEINChange(text, einEnum.nausea)
                 })
             ]
@@ -88,12 +88,12 @@ export const mainWindow = window({
             padding: {top: 16},
             content: [
                 checkbox({
-                    text: "multiple of this ride type in the park",
+                    text: "Multiple of this ride type in the park",
                     isChecked: twoway(viewModel.multipleCheck),
                     onChange: () => onCheckboxChange()
                 }),
                 checkbox({
-                    text: "charge for the park entrance",
+                    text: "Charge for the park entrance",
                     isChecked: twoway(viewModel.entranceFeeCheck),
                     onChange: () => onCheckboxChange()
                 })

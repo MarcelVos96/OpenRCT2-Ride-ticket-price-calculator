@@ -36,6 +36,12 @@ export const viewModel = {
         store<string>(viewDefaults.einLabels[2].slice())
     ],
 
+    einRatings: [
+        store<string>("0.00"),
+        store<string>("0.00"),
+        store<string>("0.00")
+    ],
+
     multipleCheck: store<boolean>(false),
     entranceFeeCheck: store<boolean>(false),
 

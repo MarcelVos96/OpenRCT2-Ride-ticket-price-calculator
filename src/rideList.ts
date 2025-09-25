@@ -6,13 +6,14 @@
 
 export enum ridesInParkCol {
     inParkId,
-    rideName
+    rideName,
+    rideType
 }
 
 /**
  * contains in park ID paired with name of the ride (eg. "Merry-go-around 1" or "Woodchiper")
  */
-export var ridesInPark = Array<[number, string]>(0)
+export var ridesInPark = Array<[number, string, number]>(0)
 
 /**
  * Useful for ui - creates sorted list of ride names and stores their bindings to park ids in this module
@@ -22,8 +23,8 @@ export function getRideListNames(): string[] {
     ridesInPark = []
     map.rides.forEach(ride => {
         if (ride.classification == "ride") {
-            ridesInPark.push([ride.id, ride.name])
-            console.log("Ride ID & name:", ride.id, ride.name)
+            ridesInPark.push([ride.id, ride.name, ride.type])
+            console.log("Ride ID & name:", ride.id, ride.name, ride.type)
         }
     })
     let nameList: string[] = []

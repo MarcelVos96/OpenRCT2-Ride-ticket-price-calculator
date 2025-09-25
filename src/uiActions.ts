@@ -41,7 +41,7 @@ export function callCalcAndUpdatePrices() {
     for (let i = 0; i < 10; i++) {
         newPriceTable[i][2] = context.formatString("{CURRENCY2DP}", newPrices[i])
     }
-
+    
     viewModel.pricesTable.set(newPriceTable)
 }
 
@@ -78,16 +78,41 @@ export function loadParkRidesInDropDown() {
 
 export function onParkRideDropDownChange() {
     let rideID: number = 0
+    let rideType: number = 0
     let rideName: String = viewModel.parkRideList.get()[viewModel.parkRideSelected.get()]
     for (let i = 0; i < ridesInPark.length; i++) {
         if (ridesInPark[i][ridesInParkCol.rideName] == rideName) {
             rideID = ridesInPark[i][ridesInParkCol.inParkId]
+            rideType = ridesInPark[i][ridesInParkCol.rideType]
+            break
         }
     }
-    console.log('Ride ID: ', rideID)
+    for (let i = 0; i < rideDataArray.length; i++) {
+        if (rideDataArray[i][rideTableCol.RideType] == rideType) {
+            viewModel.rideSelected.set(i)
+        }
+    }
+    for (let i = 0; i < ridesInPark.length; i++) {
+        if (ridesInPark[i][ridesInParkCol.rideName] == rideName) continue
+        if (ridesInPark[i][ridesInParkCol.rideType] == rideType) {
+            viewModel.multipleCheck.set(true);
+            break;
+        }
+        viewModel.multipleCheck.set(false);
+    }
+    if (park.entranceFee == 0) {
+        viewModel.entranceFeeCheck.set(false)
+    } else {
+        viewModel.entranceFeeCheck.set(true)
+    }
+    console.log('park entrance fee: ', park.entranceFee)
+    
     let rideEIN: [number, number, number] | undefined = getEin(rideID)
     if (rideEIN != undefined) {
         einInputGuarded = rideEIN
+        viewModel.einRatings[einEnum['excitement']].set(String(rideEIN[0]/100))
+        viewModel.einRatings[einEnum['intensity']].set(String(rideEIN[1]/100))
+        viewModel.einRatings[einEnum['nausea']].set(String(rideEIN[2]/100))
         console.log('Ride picked with stats: ', rideEIN[0], rideEIN[1], rideEIN[2])
     }
     if (isEinInputValid()) {
