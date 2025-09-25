@@ -79,21 +79,24 @@ export function loadParkRidesInDropDown() {
 export function onParkRideDropDownChange() {
     let rideID: number = 0
     let rideType: number = 0
-    let rideName: String = viewModel.parkRideList.get()[viewModel.parkRideSelected.get()]
+    viewModel.rideName.set(viewModel.parkRideList.get()[viewModel.parkRideSelected.get()])
     for (let i = 0; i < ridesInPark.length; i++) {
-        if (ridesInPark[i][ridesInParkCol.rideName] == rideName) {
+        if (ridesInPark[i][ridesInParkCol.rideName] == viewModel.rideName.get()) {
             rideID = ridesInPark[i][ridesInParkCol.inParkId]
             rideType = ridesInPark[i][ridesInParkCol.rideType]
             break
         }
     }
+    console.log("Ride ID & name:", rideID, viewModel.rideName.get(), rideType)
     for (let i = 0; i < rideDataArray.length; i++) {
         if (rideDataArray[i][rideTableCol.RideType] == rideType) {
+            
             viewModel.rideSelected.set(i)
+            break;
         }
     }
     for (let i = 0; i < ridesInPark.length; i++) {
-        if (ridesInPark[i][ridesInParkCol.rideName] == rideName) continue
+        if (ridesInPark[i][ridesInParkCol.rideName] == viewModel.rideName.get()) continue
         if (ridesInPark[i][ridesInParkCol.rideType] == rideType) {
             viewModel.multipleCheck.set(true);
             break;
@@ -105,7 +108,6 @@ export function onParkRideDropDownChange() {
     } else {
         viewModel.entranceFeeCheck.set(true)
     }
-    console.log('park entrance fee: ', park.entranceFee)
     
     let rideEIN: [number, number, number] | undefined = getEin(rideID)
     if (rideEIN != undefined) {
@@ -129,7 +131,7 @@ export function onRideDropDownChange() {
 // TODO: This is VERY rough way to handle wrong user input
 // Assigned: tygrysek90
 export function onEINChange(textInput: string, which: einEnum) {
-    console.log(`ein change ${textInput}, in ${einEnum[which]}`)
+    //console.log(`ein change ${textInput}, in ${einEnum[which]}`)
     if ( Number(textInput) >= 0 ) {
         einInputGuarded[which] = Number(textInput) * 100
         viewModel.einLabels[which].set(viewDefaults.einLabels[which])
@@ -150,4 +152,17 @@ export function onEINChange(textInput: string, which: einEnum) {
 
 export function onCheckboxChange() {
     callCalcAndUpdatePrices()
+}
+
+export function resetStats() {
+    viewModel.rideSelected.set(0)
+    viewModel.parkRideSelected.set(0)
+    viewModel.rideAge.set("")
+    viewModel.rideName.set("")
+    viewModel.einRatings[einEnum['excitement']].set("0.00")
+    viewModel.einRatings[einEnum['intensity']].set("0.00")
+    viewModel.einRatings[einEnum['nausea']].set("0.00")
+    viewModel.multipleCheck.set(false)
+    viewModel.entranceFeeCheck.set(false)
+    einInputGuarded = [0, 0, 0]
 }

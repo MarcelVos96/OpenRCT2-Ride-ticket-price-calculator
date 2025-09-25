@@ -18,7 +18,7 @@ export const mainWindow = window({
     //width: {min: 300, value: 300, max: 10000},
     //height: {min: 250, value: 250, max: 10000},
     width: 300,
-    height: 350,
+    height: 370,
     colours: [windowColour, windowColour],
     content: [
         // SELECT RIDE IN PARK
@@ -31,6 +31,16 @@ export const mainWindow = window({
                     items: viewModel.parkRideList,
                     onChange: () => onParkRideDropDownChange(),
                     selectedIndex: twoway(viewModel.parkRideSelected)
+                })
+            ]
+        }),
+        horizontal({
+            content: [
+                label({
+                    text: "Ride age:"
+                }),
+                label({
+                    text: viewModel.rideAge
                 })
             ]
         }),

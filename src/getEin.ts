@@ -1,3 +1,5 @@
+import { viewModel } from "./viewModel";
+
 /**
  * Get EIN rating for a ride in the park
  * @param inParkRideId id of ride *within park*
@@ -5,11 +7,10 @@
  */
 
 export function getEin(inParkRideId: number): [number, number, number] | undefined {
-    if (inParkRideId < map.numRides) {
-        let ride = map.getRide(inParkRideId);
+    let ride = map.getRide(inParkRideId);
+    if (ride != null) {
+        viewModel.rideAge.set(String(ride.age) + " months")
         return [ride.excitement, ride.intensity, ride.nausea];
     }
-    else {
-        return undefined;
-    }
+    return undefined;
 }

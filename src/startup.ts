@@ -1,8 +1,10 @@
-import { loadDataInDropDown, loadParkRidesInDropDown } from "./uiActions";
+import { loadDataInDropDown, loadParkRidesInDropDown, onParkRideDropDownChange } from "./uiActions";
 import { mainWindow } from "./mainWindow";
 import { pluginName } from "./pluginName";
-import { callCalcAndUpdatePrices } from "./uiActions";
+import { callCalcAndUpdatePrices, resetStats } from "./uiActions";
 import { activateTool } from "./tool";
+import { ridesInPark } from "./rideList";
+import { viewModel, } from "./viewModel";
 
 /**
  * Starting point
@@ -34,7 +36,22 @@ function onPluginGUIopen()
 	loadDataInDropDown()
 	loadParkRidesInDropDown()
 	mainWindow.open()
-	callCalcAndUpdatePrices()
+	for (let i = 0; i < viewModel.parkRideList.get().length; i++) {
+		if(viewModel.parkRideList.get()[i] == viewModel.rideName.get()) {
+			viewModel.parkRideSelected.set(i)
+			break;
+		}
+		if (i == viewModel.parkRideList.get().length - 1) {
+			viewModel.parkRideSelected.set(0)
+		}
+	}
+	if (ridesInPark.length > 0) {
+		onParkRideDropDownChange()
+	} else {
+		console.log("AAAAAAAAAAAAAAAAAAAA")
+		resetStats()
+		callCalcAndUpdatePrices()
+	}
 }
 
 

@@ -24,7 +24,6 @@ export function getRideListNames(): string[] {
     map.rides.forEach(ride => {
         if (ride.classification == "ride") {
             ridesInPark.push([ride.id, ride.name, ride.type])
-            console.log("Ride ID & name:", ride.id, ride.name, ride.type)
         }
     })
     let nameList: string[] = []

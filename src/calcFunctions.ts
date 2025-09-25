@@ -18,7 +18,7 @@ import { rideDataArray, rideTableCol, rideAgeArray, ageTableCol } from "./rideDa
  * @returns tuple of ten numbers in order of prices for price of 0-5 months, 5-13 months, 13-40 months, (...) 200+ months
  */
 export function calculateRidePrices(ride: number, ex: number, int: number, na: number, multipleSame: boolean, entranceCharge: boolean): PricesArray{
-    console.log(`fn calculateRidePrices (${ride}, ${ex}, ${int}, ${na}, ${multipleSame}, ${entranceCharge})`)
+    //console.log(`fn calculateRidePrices (${ride}, ${ex}, ${int}, ${na}, ${multipleSame}, ${entranceCharge})`)
 
     let maxPrices: PricesArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
@@ -34,11 +34,11 @@ export function calculateRidePrices(ride: number, ex: number, int: number, na: n
     }
 
     // example of sourcing data
-    console.log("fn calculateRidePrices middle: " + [ rideDataArray[ride][rideTableCol.RideName], rideDataArray[ride][rideTableCol.Excitement], 
-        rideDataArray[ride][rideTableCol.Intensity], rideDataArray[ride][rideTableCol.Nausea] ])
+    //console.log("fn calculateRidePrices middle: " + [ rideDataArray[ride][rideTableCol.RideName], rideDataArray[ride][rideTableCol.Excitement], 
+    //    rideDataArray[ride][rideTableCol.Intensity], rideDataArray[ride][rideTableCol.Nausea] ])
 
     /// do whatever you desire
 
-    console.log(`fn calculateRidePrices returns ${maxPrices}`)
+    //console.log(`fn calculateRidePrices returns ${maxPrices}`)
     return maxPrices
 }
