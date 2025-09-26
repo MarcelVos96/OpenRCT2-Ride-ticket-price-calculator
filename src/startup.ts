@@ -27,7 +27,7 @@ const shortcutOpenWindowAndTool: ShortcutDesc = {
 	bindings: ["CTRL+SHIFT+E"],
 	callback() {
 		onPluginGUIopen()		
-		activateTool()
+		activateTool(true)
 	}
 }
 
@@ -36,6 +36,7 @@ function onPluginGUIopen()
 	loadDataInDropDown()
 	loadParkRidesInDropDown()
 	mainWindow.open()
+	// Check if previously selected ride still exists and select it if it does
 	for (let i = 0; i < viewModel.parkRideList.get().length; i++) {
 		if(viewModel.parkRideList.get()[i] == viewModel.rideName.get()) {
 			viewModel.parkRideSelected.set(i)
@@ -48,12 +49,10 @@ function onPluginGUIopen()
 	if (ridesInPark.length > 0) {
 		onParkRideDropDownChange()
 	} else {
-		console.log("AAAAAAAAAAAAAAAAAAAA")
 		resetStats()
 		callCalcAndUpdatePrices()
 	}
 }
-
 
 export function startup()
 {

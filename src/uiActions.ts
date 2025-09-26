@@ -90,7 +90,6 @@ export function onParkRideDropDownChange() {
     console.log("Ride ID & name:", rideID, viewModel.rideName.get(), rideType)
     for (let i = 0; i < rideDataArray.length; i++) {
         if (rideDataArray[i][rideTableCol.RideType] == rideType) {
-            
             viewModel.rideSelected.set(i)
             break;
         }

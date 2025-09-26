@@ -8,8 +8,9 @@ import { viewModel } from "./viewModel";
 
 export function getEin(inParkRideId: number): [number, number, number] | undefined {
     let ride = map.getRide(inParkRideId);
+    let rideAgeS : string = ride.age == 1 ? "" : "s"
     if (ride != null) {
-        viewModel.rideAge.set(String(ride.age) + " months")
+        viewModel.rideAge.set(String(ride.age) + " month" + rideAgeS)
         return [ride.excitement, ride.intensity, ride.nausea];
     }
     return undefined;
