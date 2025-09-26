@@ -111,14 +111,24 @@ export function onParkRideDropDownChange() {
     let rideEIN: [number, number, number] | undefined = getEin(rideID)
     if (rideEIN != undefined) {
         einInputGuarded = rideEIN
-        viewModel.einRatings[einEnum['excitement']].set(String(rideEIN[0]/100))
-        viewModel.einRatings[einEnum['intensity']].set(String(rideEIN[1]/100))
-        viewModel.einRatings[einEnum['nausea']].set(String(rideEIN[2]/100))
+        viewModel.einRatings[einEnum['excitement']].set(addZeroes(String(rideEIN[0]/100)))
+        viewModel.einRatings[einEnum['intensity']].set(addZeroes(String(rideEIN[1]/100)))
+        viewModel.einRatings[einEnum['nausea']].set(addZeroes(String(rideEIN[2]/100)))
         console.log('Ride picked with stats: ', rideEIN[0], rideEIN[1], rideEIN[2])
     }
     if (isEinInputValid()) {
         callCalcAndUpdatePrices()
     }
+}
+
+function addZeroes(statValue: string): string {
+    if (statValue.length < 4) {
+        if (statValue.length < 3) {
+            statValue += ".0"
+        }
+        statValue += "0"
+    }
+    return statValue
 }
 
 export function onRideDropDownChange() {

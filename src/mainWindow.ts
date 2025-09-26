@@ -11,7 +11,6 @@ import { activateTool, closeTool } from "./tool";
 
 const windowColour = Colour.DarkBrown
 const leftColumnWidth = 120
-const statWidth = 70
 
 
 

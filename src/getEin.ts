@@ -11,7 +11,7 @@ export function getEin(inParkRideId: number): [number, number, number] | undefin
     let rideAgeS : string = ride.age == 1 ? "" : "s"
     if (ride != null) {
         viewModel.rideAge.set(String(ride.age) + " month" + rideAgeS)
-        return [ride.excitement, ride.intensity, ride.nausea];
+        return [Math.max(ride.excitement, 0), Math.max(ride.intensity, 0), Math.max(ride.nausea, 0)];
     }
     return undefined;
 }

@@ -44,9 +44,6 @@ function onToolUp(e: ToolEventArgs) {
             console.log(`found ride:  id (within park) ${element.ride}, named: ${ride.name} \n internal type id ${ride.type}, EIN: ${ride.excitement/100}, ${ride.intensity/100}, ${ride.nausea/100}`)
         }
     }
-    
-    
-    
 }
 
 export function closeTool(): void {
