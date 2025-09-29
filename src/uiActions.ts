@@ -1,7 +1,7 @@
 import { calculateRidePrices } from "./calcFunctions";
 import { viewDefaults, viewModel } from "./viewModel";
 import { einEnum, errorColorCode } from "./commonTypes";
-import { rideDataArray, rideTableCol } from "./rideData";
+import { rideDataArray, rideTableCol, rideAgeArray, ageTableCol } from "./rideData";
 import { getRideListNames, ridesInPark, ridesInParkCol } from "./rideList";
 
 /**
@@ -39,9 +39,19 @@ export function callCalcAndUpdatePrices() {
     let newPriceTable = viewDefaults.pricesTable.slice()
     
     for (let i = 0; i < 10; i++) {
-        newPriceTable[i][2] = context.formatString("{CURRENCY2DP}", newPrices[i])
+        newPriceTable[i][2] = `{BLACK}${context.formatString("{CURRENCY2DP}", + newPrices[i])}`
+        if (viewModel.rideAge.get() === "-") continue
+        if (i == 9 && Number(String(viewModel.rideAge.get().split(" ")[0])) >= rideAgeArray[i][ageTableCol.Age]) {
+            newPriceTable[i][2] = `{PEARLAQUA}${context.formatString("{CURRENCY2DP}", + newPrices[i])}`
+            break;
+        }
+        if (Number(String(viewModel.rideAge.get().split(" ")[0])) >= rideAgeArray[i][ageTableCol.Age] && 
+            Number(String(viewModel.rideAge.get().split(" ")[0])) < rideAgeArray[i+1][ageTableCol.Age]) {
+                newPriceTable[i][2] = `{PEARLAQUA}${context.formatString("{CURRENCY2DP}", + newPrices[i])}`
+        }
+        
     }
-    
+    console.log(newPriceTable)
     viewModel.pricesTable.set(newPriceTable)
 }
 
@@ -73,18 +83,30 @@ export function loadDataInDropDown() {
 export function loadParkRidesInDropDown() {
     let parkRideList: string[] = getRideListNames()
     viewModel.parkRideList.set(parkRideList)
+    for (let i = 0; i < viewModel.parkRideList.get().length; i++) {
+		if(viewModel.parkRideList.get()[i] == viewModel.rideName.get()) {
+			viewModel.parkRideSelected.set(i)
+			break;
+		}
+		if (i == viewModel.parkRideList.get().length - 1) {
+			viewModel.parkRideSelected.set(0)
+			viewModel.rideSelected.set(0)
+		}
+	}
 }
 
 export function onParkRideDropDownChange() {
-    if (viewModel.parkRideList.get()[viewModel.parkRideSelected.get()] == "Pick a ride                        ") {
-        viewModel.rideAge.set("")
+    if (viewModel.parkRideList.get()[viewModel.parkRideSelected.get()] === "Pick a ride                        ") {
+        viewModel.rideName.set("Pick a ride                        ")
+        viewModel.rideAge.set("-")
+        callCalcAndUpdatePrices()
         return
     }
     let rideID: number = 0
     let rideType: number = 0
     viewModel.rideName.set(viewModel.parkRideList.get()[viewModel.parkRideSelected.get()])
     for (let i = 0; i < ridesInPark.length; i++) {
-        if (ridesInPark[i][ridesInParkCol.rideName] == viewModel.rideName.get()) {
+        if (ridesInPark[i][ridesInParkCol.rideName] === viewModel.rideName.get()) {
             rideID = ridesInPark[i][ridesInParkCol.inParkId]
             rideType = ridesInPark[i][ridesInParkCol.rideType]
             break
@@ -98,8 +120,8 @@ export function onParkRideDropDownChange() {
         }
     }
     for (let i = 0; i < ridesInPark.length; i++) {
-        if (ridesInPark[i][ridesInParkCol.rideName] == viewModel.rideName.get()) continue
-        if (ridesInPark[i][ridesInParkCol.rideType] == rideType && map.getRide(ridesInPark[i][ridesInParkCol.inParkId]).status == "open") {
+        if (ridesInPark[i][ridesInParkCol.rideName] === viewModel.rideName.get()) continue
+        if (ridesInPark[i][ridesInParkCol.rideType] == rideType && map.getRide(ridesInPark[i][ridesInParkCol.inParkId]).status === "open") {
             viewModel.multipleCheck.set(true);
             break;
         }
@@ -129,7 +151,7 @@ function addZeroes(statValue: string): string {
 
 function getEin(inParkRideId: number) {
     let ride = map.getRide(inParkRideId);
-    let rideAgeS : string = ride.age == 1 ? "" : "s"
+    let rideAgeS: string = ride.age == 1 ? "" : "s"
     if (ride != null) {
         viewModel.rideAge.set(String(ride.age) + " month" + rideAgeS)
         if (ride.excitement < 0) {
@@ -178,12 +200,14 @@ export function onEINChange(textInput: string, which: einEnum) {
 
 export function onCheckboxChange() {
     callCalcAndUpdatePrices()
+    console.log(viewModel.pricesTable)
 }
 
 export function resetStats() {
     viewModel.rideSelected.set(0)
     viewModel.parkRideSelected.set(0)
-    viewModel.rideAge.set("")
+    viewModel.rideAge.set("-")
+    callCalcAndUpdatePrices()
     viewModel.rideName.set("")
     viewModel.einRatings[einEnum['excitement']].set("0.00")
     viewModel.einRatings[einEnum['intensity']].set("0.00")

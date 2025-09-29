@@ -11,7 +11,7 @@ export const viewDefaults = {
     pricesTable: [
         ["0-4 months","+30", context.formatString("{CURRENCY2DP}", "0")],	
         ["5-12 months", "+10", context.formatString("{CURRENCY2DP}", "0")],	
-        ["13-39 months", "×1.00", context.formatString("{CURRENCY2DP}", "0")],	
+        ["13-39 months", "×1.00", context.formatString("{CURRENCY2DP}", "0",)],	
         ["40-63 months", "×0.75", context.formatString("{CURRENCY2DP}", "0")],	
         ["64-87 months", "×0.56", context.formatString("{CURRENCY2DP}", "0")]	,
         ["88-103 months", "×0.42", context.formatString("{CURRENCY2DP}", "0")], 	

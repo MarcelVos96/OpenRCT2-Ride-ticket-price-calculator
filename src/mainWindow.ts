@@ -8,10 +8,9 @@ import { activateTool, closeTool } from "./tool";
  * User interface shape definition
  */
 
-
 const windowColour = Colour.DarkBrown
 const leftColumnWidth = 110
-
+export var windowOpen: boolean = false
 
 
 export const mainWindow = window({
@@ -20,9 +19,10 @@ export const mainWindow = window({
     //width: {min: 300, value: 300, max: 10000},
     //height: {min: 250, value: 250, max: 10000},
     width: 300,
-    height: 400,
+    height: 380,
     colours: [windowColour, windowColour],
-    onClose: () => closeTool(),
+    onOpen: () => windowOpen = true,
+    onClose: () => closeWindow(),
     content: [
         horizontal([
             vertical({
@@ -157,3 +157,8 @@ export const mainWindow = window({
         })
     ]
 })
+
+function closeWindow() {
+    closeTool()
+    windowOpen = false
+}

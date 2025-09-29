@@ -1,7 +1,7 @@
 import { loadDataInDropDown, loadParkRidesInDropDown, onParkRideDropDownChange} from "./uiActions";
-import { mainWindow } from "./mainWindow";
+import { mainWindow, windowOpen } from "./mainWindow";
 import { pluginName } from "./pluginName";
-import { callCalcAndUpdatePrices, resetStats } from "./uiActions";
+import { resetStats } from "./uiActions";
 import { activateTool } from "./tool";
 import { ridesInPark } from "./rideList";
 import { viewModel, } from "./viewModel";
@@ -15,7 +15,7 @@ import { viewModel, } from "./viewModel";
 const shortcutOpenWindow: ShortcutDesc = {
 	id: "ride-ticket-price-calculator.open",
 	text: pluginName,
-	bindings: ["ALT+E"],
+	bindings: ["CTRL+E"],
 	callback() {
 		onPluginGUIopen()		
 	}
@@ -23,8 +23,8 @@ const shortcutOpenWindow: ShortcutDesc = {
 
 const shortcutOpenWindowAndTool: ShortcutDesc = {
 	id: "ride-ticket-price-calculator.tool-open",
-	text: pluginName,
-	bindings: ["ALT+E"],
+	text: pluginName + " (activate selection tool)",
+	bindings: ["CTRL+SHIFT+E"],
 	callback() {
 		onPluginGUIopen()		
 		activateTool(true)
@@ -35,23 +35,11 @@ function onPluginGUIopen() {
 	loadDataInDropDown()
 	loadParkRidesInDropDown()
 	mainWindow.open()
-	// Check if previously selected ride still exists and select it if it does
-	for (let i = 0; i < viewModel.parkRideList.get().length; i++) {
-		if(viewModel.parkRideList.get()[i] == viewModel.rideName.get()) {
-			viewModel.parkRideSelected.set(i)
-			break;
-		}
-		if (i == viewModel.parkRideList.get().length - 1) {
-			viewModel.parkRideSelected.set(0)
-			viewModel.rideSelected.set(0)
-		}
-	}
 	if (ridesInPark.length > 0 && viewModel.parkRideSelected.get() > 0) {
 		console.log("Park ride selected:", viewModel.parkRideSelected.get())
 		onParkRideDropDownChange()
 	} else {
 		resetStats()
-		callCalcAndUpdatePrices()
 	}
 }
 
@@ -68,7 +56,10 @@ export function startup()
 	}
 	context.setInterval(
 		function() {
-			if (viewModel.autoUpdate.get()) onParkRideDropDownChange();
+			if (windowOpen && viewModel.autoUpdate.get()) {
+				loadParkRidesInDropDown()
+				onParkRideDropDownChange()
+			} 
 		}, 500
 	);
 }

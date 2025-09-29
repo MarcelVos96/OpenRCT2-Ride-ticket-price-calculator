@@ -12,6 +12,7 @@ const tileSize = 32
  */
 export function activateTool(pressed: boolean): void {
         if (pressed) {
+            if (!viewModel.isPressed.get()) viewModel.isPressed.set(true)
 		    ui.activateTool({
               id: "rtpc-plugin.selector",
               cursor: "cross_hair",
