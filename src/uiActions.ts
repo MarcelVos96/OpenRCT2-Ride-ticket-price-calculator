@@ -3,10 +3,10 @@ import { viewDefaults, viewModel } from "./viewModel";
 import { einEnum, errorColorCode } from "./commonTypes";
 import { rideDataArray, rideTableCol } from "./rideData";
 import { getRideListNames, ridesInPark, ridesInParkCol } from "./rideList";
-import { getEin } from "./getEin";
 
 /**
  * User interface actions
+ *  * @param inParkRideId id of ride *within park*
  */
 
 
@@ -61,7 +61,6 @@ function showErrorInPricesTable(){
 /** Loads Ride names into UI */
 export function loadDataInDropDown() {
     let rideList: string[] = []
-
     rideDataArray.forEach(record => {
         rideList.push(record[rideTableCol.RideName])
     })
@@ -77,6 +76,10 @@ export function loadParkRidesInDropDown() {
 }
 
 export function onParkRideDropDownChange() {
+    if (viewModel.parkRideList.get()[viewModel.parkRideSelected.get()] == "Pick a ride                        ") {
+        viewModel.rideAge.set("")
+        return
+    }
     let rideID: number = 0
     let rideType: number = 0
     viewModel.rideName.set(viewModel.parkRideList.get()[viewModel.parkRideSelected.get()])
@@ -87,7 +90,7 @@ export function onParkRideDropDownChange() {
             break
         }
     }
-    console.log("Ride ID & name:", rideID, viewModel.rideName.get(), rideType)
+    //console.log("Ride ID & name:", rideID, viewModel.rideName.get(), rideType)
     for (let i = 0; i < rideDataArray.length; i++) {
         if (rideDataArray[i][rideTableCol.RideType] == rideType) {
             viewModel.rideSelected.set(i)
@@ -96,7 +99,7 @@ export function onParkRideDropDownChange() {
     }
     for (let i = 0; i < ridesInPark.length; i++) {
         if (ridesInPark[i][ridesInParkCol.rideName] == viewModel.rideName.get()) continue
-        if (ridesInPark[i][ridesInParkCol.rideType] == rideType) {
+        if (ridesInPark[i][ridesInParkCol.rideType] == rideType && map.getRide(ridesInPark[i][ridesInParkCol.inParkId]).status == "open") {
             viewModel.multipleCheck.set(true);
             break;
         }
@@ -108,14 +111,7 @@ export function onParkRideDropDownChange() {
         viewModel.entranceFeeCheck.set(true)
     }
     
-    let rideEIN: [number, number, number] | undefined = getEin(rideID)
-    if (rideEIN != undefined) {
-        einInputGuarded = rideEIN
-        viewModel.einRatings[einEnum['excitement']].set(addZeroes(String(rideEIN[0]/100)))
-        viewModel.einRatings[einEnum['intensity']].set(addZeroes(String(rideEIN[1]/100)))
-        viewModel.einRatings[einEnum['nausea']].set(addZeroes(String(rideEIN[2]/100)))
-        console.log('Ride picked with stats: ', rideEIN[0], rideEIN[1], rideEIN[2])
-    }
+    getEin(rideID)
     if (isEinInputValid()) {
         callCalcAndUpdatePrices()
     }
@@ -129,6 +125,29 @@ function addZeroes(statValue: string): string {
         statValue += "0"
     }
     return statValue
+}
+
+function getEin(inParkRideId: number) {
+    let ride = map.getRide(inParkRideId);
+    let rideAgeS : string = ride.age == 1 ? "" : "s"
+    if (ride != null) {
+        viewModel.rideAge.set(String(ride.age) + " month" + rideAgeS)
+        if (ride.excitement < 0) {
+            viewModel.einRatings[einEnum.excitement].set("Not calculated yet")
+            viewModel.einRatings[einEnum.intensity].set("Not calculated yet")
+            viewModel.einRatings[einEnum.nausea].set("Not calculated yet")
+            onEINChange(viewModel.einRatings[einEnum.excitement].get(), einEnum.excitement)
+            onEINChange(viewModel.einRatings[einEnum.intensity].get(), einEnum.intensity)
+            onEINChange(viewModel.einRatings[einEnum.nausea].get(), einEnum.nausea)
+        } else {
+            viewModel.einRatings[einEnum['excitement']].set(addZeroes(String(ride.excitement/100)))
+            viewModel.einRatings[einEnum['intensity']].set(addZeroes(String(ride.intensity/100)))
+            viewModel.einRatings[einEnum['nausea']].set(addZeroes(String(ride.nausea/100)))
+            onEINChange(viewModel.einRatings[einEnum.excitement].get(), einEnum.excitement)
+            onEINChange(viewModel.einRatings[einEnum.intensity].get(), einEnum.intensity)
+            onEINChange(viewModel.einRatings[einEnum.nausea].get(), einEnum.nausea)
+        }
+    }
 }
 
 export function onRideDropDownChange() {
@@ -145,7 +164,7 @@ export function onEINChange(textInput: string, which: einEnum) {
         einInputGuarded[which] = Number(textInput) * 100
         viewModel.einLabels[which].set(viewDefaults.einLabels[which])
         isEinInputClean[which] = true
-        console.log(isEinInputClean, einInputClean)
+        //console.log(isEinInputClean, einInputClean)
         if (isEinInputValid()) {
             callCalcAndUpdatePrices()
         }
@@ -154,9 +173,7 @@ export function onEINChange(textInput: string, which: einEnum) {
         viewModel.einLabels[which].set(errorColorCode+viewDefaults.einLabels[which])
         isEinInputClean[which] = false
         showErrorInPricesTable()
-
     }
-
 }
 
 export function onCheckboxChange() {

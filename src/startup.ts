@@ -1,4 +1,4 @@
-import { loadDataInDropDown, loadParkRidesInDropDown, onParkRideDropDownChange } from "./uiActions";
+import { loadDataInDropDown, loadParkRidesInDropDown, onParkRideDropDownChange} from "./uiActions";
 import { mainWindow } from "./mainWindow";
 import { pluginName } from "./pluginName";
 import { callCalcAndUpdatePrices, resetStats } from "./uiActions";
@@ -24,15 +24,14 @@ const shortcutOpenWindow: ShortcutDesc = {
 const shortcutOpenWindowAndTool: ShortcutDesc = {
 	id: "ride-ticket-price-calculator.tool-open",
 	text: pluginName,
-	bindings: ["CTRL+SHIFT+E"],
+	bindings: ["ALT+E"],
 	callback() {
 		onPluginGUIopen()		
 		activateTool(true)
 	}
 }
 
-function onPluginGUIopen()
-{
+function onPluginGUIopen() {
 	loadDataInDropDown()
 	loadParkRidesInDropDown()
 	mainWindow.open()
@@ -44,9 +43,11 @@ function onPluginGUIopen()
 		}
 		if (i == viewModel.parkRideList.get().length - 1) {
 			viewModel.parkRideSelected.set(0)
+			viewModel.rideSelected.set(0)
 		}
 	}
-	if (ridesInPark.length > 0) {
+	if (ridesInPark.length > 0 && viewModel.parkRideSelected.get() > 0) {
+		console.log("Park ride selected:", viewModel.parkRideSelected.get())
 		onParkRideDropDownChange()
 	} else {
 		resetStats()
@@ -60,10 +61,14 @@ export function startup()
 	ui.registerShortcut(shortcutOpenWindow)
 	ui.registerShortcut(shortcutOpenWindowAndTool)
 
-
 	// Register a menu item under the map icon:
 	if (typeof ui !== "undefined")
 	{
 		ui.registerMenuItem(pluginName, () => onPluginGUIopen());
 	}
+	context.setInterval(
+		function() {
+			if (viewModel.autoUpdate.get()) onParkRideDropDownChange();
+		}, 500
+	);
 }

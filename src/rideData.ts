@@ -14,6 +14,7 @@ RideType
  * e.g.: "rideDataArray[rideTableCol.Excitement]"
  */
 export const rideDataArray: Array<[string, number, number, number, number]> = [
+    ["Pick a ride type", 0, 0, 0, -1],
     ["3D Cinema", 20 ,10 ,0, 39],
     ["Air Powered Vertical Coaster", 44 ,66 ,10, 75],
     ["Alpine Coaster", 50 ,30 ,10, 98],

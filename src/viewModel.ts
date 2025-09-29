@@ -1,7 +1,7 @@
 import { store } from "openrct2-flexui";
-import { errorColorCode } from "./commonTypes";
 
 export const viewDefaults = {
+
     einLabels: [
         "Excitement rating:",
         "Intensity rating:",
@@ -21,7 +21,7 @@ export const viewDefaults = {
         ["200+ months", "×0.56", context.formatString("{CURRENCY2DP}", "0")]
     ],
 
-    pricesTableErrorPrice: `${errorColorCode}?` 
+    pricesTableErrorPrice: `?`
 }
 
 export const viewModel = {
@@ -46,6 +46,7 @@ export const viewModel = {
 
     multipleCheck: store<boolean>(false),
     entranceFeeCheck: store<boolean>(false),
+    autoUpdate: store<boolean>(true),
     isPressed: store<boolean>(false),
     pricesTable: store<string[][]>(viewDefaults.pricesTable.slice()),
 }

@@ -30,7 +30,10 @@ export function getRideListNames(): string[] {
     ridesInPark.forEach(ride => {
         nameList.push(ride[ridesInParkCol.rideName].slice())
     })
-    return nameList.sort()
+    nameList = nameList.sort()
+    ridesInPark.unshift([-1, "Pick a ride                        ", -1])
+    nameList.unshift("Pick a ride                        ")
+    return nameList
 }
 
 /**
@@ -40,7 +43,7 @@ export function getRideListNames(): string[] {
  */
 export function getParkRideID(name: string): number | undefined {
     for (let i=0;  i<ridesInPark.length; i++) {
-        console.log(ridesInPark[i][ridesInParkCol.rideName])
+        //console.log(ridesInPark[i][ridesInParkCol.rideName])
         if (ridesInPark[i][ridesInParkCol.rideName] == name) {
             return ridesInPark[i][ridesInParkCol.inParkId]
         }

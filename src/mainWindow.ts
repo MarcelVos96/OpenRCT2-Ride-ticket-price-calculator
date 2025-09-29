@@ -10,7 +10,7 @@ import { activateTool, closeTool } from "./tool";
 
 
 const windowColour = Colour.DarkBrown
-const leftColumnWidth = 120
+const leftColumnWidth = 110
 
 
 
@@ -20,7 +20,7 @@ export const mainWindow = window({
     //width: {min: 300, value: 300, max: 10000},
     //height: {min: 250, value: 250, max: 10000},
     width: 300,
-    height: 370,
+    height: 400,
     colours: [windowColour, windowColour],
     onClose: () => closeTool(),
     content: [
@@ -60,37 +60,15 @@ export const mainWindow = window({
                 ]
             })
         ]),
-        
-        // SELECT RIDE IN PARK
-        /*horizontal({
-            content: [
-                label({
-                    text: "Select ride in park:"
-                }),
-                dropdown({
-                    items: viewModel.parkRideList,
-                    onChange: () => onParkRideDropDownChange(),
-                    selectedIndex: twoway(viewModel.parkRideSelected)
-                }),
-                toggle({
-					width: 24, height: 24,
-					tooltip: "Use the picker to select a ride by clicking it",
-					image: "eyedropper", // SPR_G2_EYEDROPPER
-                    isPressed: twoway(viewModel.isPressed),
-					onChange: pressed => activateTool(pressed)
-				}),
-            ]
-        }),
         horizontal({
             content: [
-                label({
-                    text: "Ride age:"
+                checkbox({
+                    text: "Automatically update ride stats",
+                    isChecked: twoway(viewModel.autoUpdate),
                 }),
-                label({
-                    text: viewModel.rideAge
-                })
             ]
-        }),*/
+        }),
+        
         // RIDE TYPE
         horizontal({
             padding: {top: 16},
@@ -149,12 +127,12 @@ export const mainWindow = window({
             padding: {top: 16},
             content: [
                 checkbox({
-                    text: "Multiple of this ride type in the park?",
+                    text: "Multiple of this ride type in the park",
                     isChecked: twoway(viewModel.multipleCheck),
                     onChange: () => onCheckboxChange()
                 }),
                 checkbox({
-                    text: "Charge for the park entrance?",
+                    text: "Charge for the park entrance",
                     isChecked: twoway(viewModel.entranceFeeCheck),
                     onChange: () => onCheckboxChange()
                 })

@@ -16,7 +16,8 @@ export function activateTool(pressed: boolean): void {
               id: "rtpc-plugin.selector",
               cursor: "cross_hair",
               filter: ["ride"],
-              onUp: (e: ToolEventArgs) => onToolUp(e)
+              onUp: (e: ToolEventArgs) => onToolUp(e),
+              onFinish: () => closeTool()
 		    });
         } else {
             closeTool()
