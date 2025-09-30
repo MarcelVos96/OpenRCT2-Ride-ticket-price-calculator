@@ -5,7 +5,7 @@
 
 
 /**
- * tuple of ten numbers in order of prices for price of 0-5 months, 5-13 months, 13-40 months, (...) 200+ months
+ * tuple of ten numbers in order of prices for price of 0-4 months, 5-12 months, 13-39 months, (...) 200+ months
  */
 export type PricesArray = [number, number, number, number, number, number, number, number, number, number]
 

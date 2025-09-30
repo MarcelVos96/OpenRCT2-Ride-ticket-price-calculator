@@ -15,15 +15,13 @@ export var windowOpen: boolean = false
 
 export const mainWindow = window({
     title: "Ride ticket price calculator",
-    // this can be of variable size in one or both axis-es
-    //width: {min: 300, value: 300, max: 10000},
-    //height: {min: 250, value: 250, max: 10000},
     width: 300,
     height: 380,
     colours: [windowColour, windowColour],
     onOpen: () => windowOpen = true,
     onClose: () => closeWindow(),
     content: [
+        // RIDE SELECTER
         horizontal([
             vertical({
                 width: leftColumnWidth,
@@ -142,6 +140,7 @@ export const mainWindow = window({
         listview({
             columns: [{header: "Ride age", ratioWidth: 5}, {header: "Age value", ratioWidth: 3}, {header: "Max ticket price", ratioWidth: 4}],
             items: viewModel.pricesTable,
+            scrollbars: "none"
         }),
         // ABOUT BOX
         groupbox({

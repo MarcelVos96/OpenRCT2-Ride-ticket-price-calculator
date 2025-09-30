@@ -10,8 +10,6 @@ import { viewModel, } from "./viewModel";
  * Starting point
  */
 
-
-/** Some nice shortcut, for fast window opening, very feastible for development */
 const shortcutOpenWindow: ShortcutDesc = {
 	id: "ride-ticket-price-calculator.open",
 	text: pluginName,
@@ -36,7 +34,6 @@ function onPluginGUIopen() {
 	loadParkRidesInDropDown()
 	mainWindow.open()
 	if (ridesInPark.length > 0 && viewModel.parkRideSelected.get() > 0) {
-		console.log("Park ride selected:", viewModel.parkRideSelected.get())
 		onParkRideDropDownChange()
 	} else {
 		resetStats()
@@ -45,7 +42,6 @@ function onPluginGUIopen() {
 
 export function startup()
 {
-	// Write code here that should happen on startup of the plugin.
 	ui.registerShortcut(shortcutOpenWindow)
 	ui.registerShortcut(shortcutOpenWindowAndTool)
 

@@ -23,10 +23,9 @@ export function activateTool(pressed: boolean): void {
         } else {
             closeTool()
         }
-
-		//console.log(`Tool: activated.`);
 	}
 
+/** Check if a ride is to be selected when tool is used */
 function onToolUp(e: ToolEventArgs) {
     if (e.mapCoords != undefined && e.tileElementIndex != undefined) {
         // .mapCoords are 32 times multiple of actual tile number
@@ -41,13 +40,11 @@ function onToolUp(e: ToolEventArgs) {
                     break
                 }
             }
-            // create a call to function in actions.ts here, that can accept some of these arguments shown below, 
-            // then comment out the line console.log line 
-            console.log(`found ride:  id (within park) ${element.ride}, named: ${ride.name} \n internal type id ${ride.type}, EIN: ${ride.excitement/100}, ${ride.intensity/100}, ${ride.nausea/100}`)
         }
     }
 }
 
+/** Do relevant actions when closing the ride selecting tool */
 export function closeTool(): void {
     if (ui.tool) ui.tool.cancel()
     viewModel.isPressed.set(false)

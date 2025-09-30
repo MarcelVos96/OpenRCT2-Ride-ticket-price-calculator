@@ -51,7 +51,6 @@ export function callCalcAndUpdatePrices() {
         }
         
     }
-    console.log(newPriceTable)
     viewModel.pricesTable.set(newPriceTable)
 }
 
@@ -68,7 +67,7 @@ function showErrorInPricesTable(){
 }
 
 
-/** Loads Ride names into UI */
+/** Loads ride types into UI */
 export function loadDataInDropDown() {
     let rideList: string[] = []
     rideDataArray.forEach(record => {
@@ -80,6 +79,7 @@ export function loadDataInDropDown() {
     viewModel.rideList.set(rideList)
 }
 
+/** Loads the rides in the park into UI */
 export function loadParkRidesInDropDown() {
     let parkRideList: string[] = getRideListNames()
     viewModel.parkRideList.set(parkRideList)
@@ -95,6 +95,7 @@ export function loadParkRidesInDropDown() {
 	}
 }
 
+/** Updates stats after selecting a ride in the park */
 export function onParkRideDropDownChange() {
     if (viewModel.parkRideList.get()[viewModel.parkRideSelected.get()] === "Pick a ride                        ") {
         viewModel.rideName.set("Pick a ride                        ")
@@ -112,7 +113,6 @@ export function onParkRideDropDownChange() {
             break
         }
     }
-    //console.log("Ride ID & name:", rideID, viewModel.rideName.get(), rideType)
     for (let i = 0; i < rideDataArray.length; i++) {
         if (rideDataArray[i][rideTableCol.RideType] == rideType) {
             viewModel.rideSelected.set(i)
@@ -139,6 +139,7 @@ export function onParkRideDropDownChange() {
     }
 }
 
+/** Correctly formats numbers in the x.xx format */
 function addZeroes(statValue: string): string {
     if (statValue.length < 4) {
         if (statValue.length < 3) {
@@ -149,6 +150,7 @@ function addZeroes(statValue: string): string {
     return statValue
 }
 
+/** Retrieves the EIN stats and age of the selected ride */
 function getEin(inParkRideId: number) {
     let ride = map.getRide(inParkRideId);
     let rideAgeS: string = ride.age == 1 ? "" : "s"
@@ -172,21 +174,19 @@ function getEin(inParkRideId: number) {
     }
 }
 
+/** Calls to update prices after a different ride type is selected */
 export function onRideDropDownChange() {
     if (isEinInputValid()) {
         callCalcAndUpdatePrices()
     }
 }
 
-// TODO: This is VERY rough way to handle wrong user input
-// Assigned: tygrysek90
+/** Checks if EIN input is valid and calls for price calculation */
 export function onEINChange(textInput: string, which: einEnum) {
-    //console.log(`ein change ${textInput}, in ${einEnum[which]}`)
     if ( Number(textInput) >= 0 ) {
         einInputGuarded[which] = Number(textInput) * 100
         viewModel.einLabels[which].set(viewDefaults.einLabels[which])
         isEinInputClean[which] = true
-        //console.log(isEinInputClean, einInputClean)
         if (isEinInputValid()) {
             callCalcAndUpdatePrices()
         }
@@ -198,11 +198,12 @@ export function onEINChange(textInput: string, which: einEnum) {
     }
 }
 
+/** Calls for price recalculation when a checkbox changes */
 export function onCheckboxChange() {
     callCalcAndUpdatePrices()
-    console.log(viewModel.pricesTable)
 }
 
+/**Resets all the input */
 export function resetStats() {
     viewModel.rideSelected.set(0)
     viewModel.parkRideSelected.set(0)
