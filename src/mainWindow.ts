@@ -39,7 +39,7 @@ export const mainWindow = window({
                     dropdown({
                         items: viewModel.parkRideList,
                         onChange: () => onParkRideDropDownChange(),
-                        selectedIndex: twoway(viewModel.parkRideSelected)
+                        selectedIndex: twoway(viewModel.parkRideSelected),
                     }),
                     label({
                         text: viewModel.rideAge

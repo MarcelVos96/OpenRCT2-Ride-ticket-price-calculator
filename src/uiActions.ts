@@ -42,12 +42,12 @@ export function callCalcAndUpdatePrices() {
         newPriceTable[i][2] = `{BLACK}${context.formatString("{CURRENCY2DP}", + newPrices[i])}`
         if (viewModel.rideAge.get() === "-") continue
         if (i == 9 && Number(String(viewModel.rideAge.get().split(" ")[0])) >= rideAgeArray[i][ageTableCol.Age]) {
-            newPriceTable[i][2] = `{PEARLAQUA}${context.formatString("{CURRENCY2DP}", + newPrices[i])}`
+            newPriceTable[i][2] = `{GREY}${context.formatString("{CURRENCY2DP}", + newPrices[i])}`
             break;
         }
         if (Number(String(viewModel.rideAge.get().split(" ")[0])) >= rideAgeArray[i][ageTableCol.Age] && 
             Number(String(viewModel.rideAge.get().split(" ")[0])) < rideAgeArray[i+1][ageTableCol.Age]) {
-                newPriceTable[i][2] = `{PEARLAQUA}${context.formatString("{CURRENCY2DP}", + newPrices[i])}`
+                newPriceTable[i][2] = `{GREY}${context.formatString("{CURRENCY2DP}", + newPrices[i])}`
         }
         
     }
@@ -141,10 +141,10 @@ export function onParkRideDropDownChange() {
 
 /** Correctly formats numbers in the x.xx format */
 function addZeroes(statValue: string): string {
-    if (statValue.length < 4) {
-        if (statValue.length < 3) {
-            statValue += ".0"
-        }
+    if (statValue.split(".").length == 1) {
+        statValue += ".0"
+    }
+    if (statValue.split(".")[1].length == 1) {
         statValue += "0"
     }
     return statValue
