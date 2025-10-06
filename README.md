@@ -2,8 +2,10 @@
 
 This plugin allows you to calculate the maximum ticket price of any ride, either one in your park or one that's made up.
 
+![RTPC showcase](https://github.com/user-attachments/assets/36f6799d-d518-4a1f-9643-fc3ac6ec8462)
+
 ## Current features
-- Select a ride in your park with either the dropdown meny or the ride picker.
+- Select a ride in your park with either the dropdown or the ride picker.
 - The current maximum ticket price will be highlighted in silver.
 - Automatic updates when any of the variables relating to the currently selected ride change.
 - Make up your own input to theorize the prices of any ride type with any stats.
@@ -20,4 +22,4 @@ This plugin allows you to calculate the maximum ticket price of any ride, either
 
 ## Credits
 - Designed and mostly written by Marcel Vos with a big thanks to Tygrysek90 for helping with this plugin and setting up the basics.
-- Thanks to Basssiiie for creating the OpenRCT2-Simple-Typescript-Template that is used in this plugin
+- Thanks to Basssiiie for creating the OpenRCT2-Simple-Typescript-Template and FlexUI library that are used in this plugin
