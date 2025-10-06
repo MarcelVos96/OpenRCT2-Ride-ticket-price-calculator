@@ -19,4 +19,5 @@ This plugin allows you to calculate the maximum ticket price of any ride, either
 4. Once the file is there, it should show up ingame in the dropdown menu under the map icon.
 
 ## Credits
-Designed and mostly written by Marcel Vos with a big thanks to Tygrysek90 for helping with this plugin and setting up the basics.
+- Designed and mostly written by Marcel Vos with a big thanks to Tygrysek90 for helping with this plugin and setting up the basics.
+- Thanks to Basssiiie for creating the OpenRCT2-Simple-Typescript-Template that is used in this plugin
