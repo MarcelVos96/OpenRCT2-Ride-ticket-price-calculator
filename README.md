@@ -13,7 +13,7 @@ This plugin allows you to calculate the maximum ticket price of any ride, either
 ## Installation
 
 1. This plugin requires at least OpenRCT2 version v0.4.3 (or v0.3.4 if you don't mind a missing image on the ride picker button).
-2. Download the latest version of the plugin from the [Releases page](https://github.com/tygrysek90/OpenRCT2-Ride-ticket-price-calculator/releases).
+2. Download the latest version of the plugin from the [Releases page](https://github.com/MarcelVos96/OpenRCT2-Ride-ticket-price-calculator/releases).
 3. To install it, put the downloaded `*.js` file into your `/OpenRCT2/plugin` folder.
     - Easiest way to find the OpenRCT2-folder is by launching the OpenRCT2 game, click and hold on the red toolbox in the main menu, and select "Open custom content folder".
     - Otherwise this folder is commonly found in `C:/Users/<YOUR NAME>/Documents/OpenRCT2/plugin` on Windows.
