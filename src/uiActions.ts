@@ -122,12 +122,13 @@ export function onParkRideDropDownChange() {
     for (let i = 0; i < ridesInPark.length; i++) {
         if (ridesInPark[i][ridesInParkCol.rideName] === viewModel.rideName.get()) continue
         if (ridesInPark[i][ridesInParkCol.rideType] == rideType && map.getRide(ridesInPark[i][ridesInParkCol.inParkId]).status === "open") {
-            viewModel.multipleCheck.set(true);
+            viewModel.multipleCheck.set(true)
             break;
         }
-        viewModel.multipleCheck.set(false);
+        viewModel.multipleCheck.set(false)
     }
-    if (park.entranceFee == 0) {
+    let freeParkEntry: boolean = park.getFlag("freeParkEntry")
+    if (freeParkEntry) {
         viewModel.entranceFeeCheck.set(false)
     } else {
         viewModel.entranceFeeCheck.set(true)
@@ -157,19 +158,13 @@ function getEin(inParkRideId: number) {
     if (ride != null) {
         viewModel.rideAge.set(String(ride.age) + " month" + rideAgeS)
         if (ride.excitement < 0) {
-            viewModel.einRatings[einEnum.excitement].set("Not calculated yet")
-            viewModel.einRatings[einEnum.intensity].set("Not calculated yet")
-            viewModel.einRatings[einEnum.nausea].set("Not calculated yet")
-            onEINChange(viewModel.einRatings[einEnum.excitement].get(), einEnum.excitement)
-            onEINChange(viewModel.einRatings[einEnum.intensity].get(), einEnum.intensity)
-            onEINChange(viewModel.einRatings[einEnum.nausea].get(), einEnum.nausea)
+            onEINChange("Not calculated yet", einEnum.excitement)
+            onEINChange("Not calculated yet", einEnum.intensity)
+            onEINChange("Not calculated yet", einEnum.nausea)
         } else {
-            viewModel.einRatings[einEnum['excitement']].set(addZeroes(String(ride.excitement/100)))
-            viewModel.einRatings[einEnum['intensity']].set(addZeroes(String(ride.intensity/100)))
-            viewModel.einRatings[einEnum['nausea']].set(addZeroes(String(ride.nausea/100)))
-            onEINChange(viewModel.einRatings[einEnum.excitement].get(), einEnum.excitement)
-            onEINChange(viewModel.einRatings[einEnum.intensity].get(), einEnum.intensity)
-            onEINChange(viewModel.einRatings[einEnum.nausea].get(), einEnum.nausea)
+            onEINChange(addZeroes(String(ride.excitement/100)), einEnum.excitement)
+            onEINChange(addZeroes(String(ride.intensity/100)), einEnum.intensity)
+            onEINChange(addZeroes(String(ride.nausea/100)), einEnum.nausea)
         }
     }
 }
@@ -186,6 +181,7 @@ export function onEINChange(textInput: string, which: einEnum) {
     if ( Number(textInput) >= 0 ) {
         einInputGuarded[which] = Number(textInput) * 100
         viewModel.einLabels[which].set(viewDefaults.einLabels[which])
+        viewModel.einRatings[which].set(textInput)
         isEinInputClean[which] = true
         if (isEinInputValid()) {
             callCalcAndUpdatePrices()
@@ -194,6 +190,7 @@ export function onEINChange(textInput: string, which: einEnum) {
     else {
         viewModel.einLabels[which].set(errorColorCode+viewDefaults.einLabels[which])
         isEinInputClean[which] = false
+        viewModel.einRatings[which].set(textInput)
         showErrorInPricesTable()
     }
 }
