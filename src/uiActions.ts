@@ -127,8 +127,7 @@ export function onParkRideDropDownChange() {
         }
         viewModel.multipleCheck.set(false)
     }
-    let freeParkEntry: boolean = park.getFlag("freeParkEntry")
-    if (freeParkEntry) {
+    if (park.getFlag("freeParkEntry") || park.entranceFee == 0) {
         viewModel.entranceFeeCheck.set(false)
     } else {
         viewModel.entranceFeeCheck.set(true)
