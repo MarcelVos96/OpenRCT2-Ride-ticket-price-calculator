@@ -21,3 +21,6 @@ export enum einEnum {
 
 /** OpenRCT2 string {} to be used when showing something wrong */
 export const errorColorCode = "{LIGHTPINK}"
+
+/**The two possible modes of the plugin */
+export type pluginMode = "manual" | "auto"

@@ -1,6 +1,6 @@
 import { calculateRidePrices } from "./calcFunctions";
 import { viewDefaults, viewModel } from "./viewModel";
-import { einEnum, errorColorCode } from "./commonTypes";
+import { einEnum, errorColorCode, pluginMode } from "./commonTypes";
 import { rideDataArray, rideTableCol, rideAgeArray, ageTableCol } from "./rideData";
 import { getRideListNames, ridesInPark, ridesInParkCol } from "./rideList";
 
@@ -209,7 +209,7 @@ export function onCheckboxChange() {
 }
 
 /** Changes the mode the plugin is in */
-export function changeMode(newMode: String) {
+export function changeMode(newMode: pluginMode) {
     if (newMode === "manual") {
         viewModel.manualMode.set(true)
         viewModel.autoUpdate.set(false)
