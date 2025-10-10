@@ -14,7 +14,7 @@ export var windowOpen: boolean = false
 
 
 export const mainWindow = window({
-    title: "Ride ticket price calculator",
+    title: "Ride ticket price calculator (v0.1.1)",
     width: 300,
     height: 380,
     colours: [windowColour, windowColour],
