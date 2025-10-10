@@ -1,7 +1,7 @@
 import { checkbox, Colour, dropdown, groupbox, horizontal, label, listview, textbox, toggle, twoway, vertical, window } from "openrct2-flexui";
 import { viewModel } from "./viewModel";
 import { einEnum } from "./commonTypes";
-import { onEINChange, onParkRideDropDownChange, onRideDropDownChange, onCheckboxChange } from "./uiActions";
+import { onEINChange, onParkRideDropDownChange, onRideDropDownChange, onCheckboxChange, changeMode } from "./uiActions";
 import { activateTool, closeTool } from "./tool";
 
 /**
@@ -14,9 +14,9 @@ export var windowOpen: boolean = false
 
 
 export const mainWindow = window({
-    title: "Ride ticket price calculator (v0.1.1)",
+    title: "Ride ticket price calculator (v0.1.2)",
     width: 300,
-    height: 380,
+    height: 400,
     colours: [windowColour, windowColour],
     onOpen: () => windowOpen = true,
     onClose: () => closeWindow(),
@@ -63,6 +63,16 @@ export const mainWindow = window({
                 checkbox({
                     text: "Automatically update ride stats",
                     isChecked: twoway(viewModel.autoUpdate),
+                    onChange: () => changeMode("auto")
+                }),
+            ]
+        }),
+        horizontal({
+            content: [
+                checkbox({
+                    text: "Manually input ride stats",
+                    isChecked: twoway(viewModel.manualMode),
+                    onChange: () => changeMode("manual")
                 }),
             ]
         }),

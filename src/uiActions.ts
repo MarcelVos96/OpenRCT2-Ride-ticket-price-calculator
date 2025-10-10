@@ -103,6 +103,7 @@ export function onParkRideDropDownChange() {
         callCalcAndUpdatePrices()
         return
     }
+    changeMode("auto")
     let rideID: number = 0
     let rideType: number = 0
     viewModel.rideName.set(viewModel.parkRideList.get()[viewModel.parkRideSelected.get()])
@@ -157,26 +158,32 @@ function getEin(inParkRideId: number) {
     if (ride != null) {
         viewModel.rideAge.set(String(ride.age) + " month" + rideAgeS)
         if (ride.excitement < 0) {
-            onEINChange("Not calculated yet", einEnum.excitement)
-            onEINChange("Not calculated yet", einEnum.intensity)
-            onEINChange("Not calculated yet", einEnum.nausea)
+            processEINChange("Not calculated yet", einEnum.excitement)
+            processEINChange("Not calculated yet", einEnum.intensity)
+            processEINChange("Not calculated yet", einEnum.nausea)
         } else {
-            onEINChange(addZeroes(String(ride.excitement/100)), einEnum.excitement)
-            onEINChange(addZeroes(String(ride.intensity/100)), einEnum.intensity)
-            onEINChange(addZeroes(String(ride.nausea/100)), einEnum.nausea)
+            processEINChange(addZeroes(String(ride.excitement/100)), einEnum.excitement)
+            processEINChange(addZeroes(String(ride.intensity/100)), einEnum.intensity)
+            processEINChange(addZeroes(String(ride.nausea/100)), einEnum.nausea)
         }
     }
 }
 
 /** Calls to update prices after a different ride type is selected */
 export function onRideDropDownChange() {
+    changeMode("manual")
     if (isEinInputValid()) {
         callCalcAndUpdatePrices()
     }
 }
 
-/** Checks if EIN input is valid and calls for price calculation */
 export function onEINChange(textInput: string, which: einEnum) {
+    changeMode("manual")
+    processEINChange(textInput, which)
+}
+
+/** Checks if EIN input is valid and calls for price calculation */
+export function processEINChange(textInput: string, which: einEnum) {
     if ( Number(textInput) >= 0 ) {
         einInputGuarded[which] = Number(textInput) * 100
         viewModel.einLabels[which].set(viewDefaults.einLabels[which])
@@ -196,7 +203,19 @@ export function onEINChange(textInput: string, which: einEnum) {
 
 /** Calls for price recalculation when a checkbox changes */
 export function onCheckboxChange() {
+    changeMode("manual")
     callCalcAndUpdatePrices()
+}
+
+export function changeMode(newMode: String) {
+    if (newMode === "manual") {
+        viewModel.manualMode.set(true)
+        viewModel.autoUpdate.set(false)
+    }
+    if (newMode === "auto") {
+        viewModel.manualMode.set(false)
+        viewModel.autoUpdate.set(true)
+    }
 }
 
 /**Resets all the input */

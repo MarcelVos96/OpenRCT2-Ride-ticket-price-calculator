@@ -47,6 +47,7 @@ export const viewModel = {
     multipleCheck: store<boolean>(false),
     entranceFeeCheck: store<boolean>(false),
     autoUpdate: store<boolean>(true),
+    manualMode: store<boolean>(false),
     isPressed: store<boolean>(false),
     pricesTable: store<string[][]>(viewDefaults.pricesTable.slice()),
 }
