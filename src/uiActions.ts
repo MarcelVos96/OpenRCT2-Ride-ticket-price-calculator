@@ -177,6 +177,7 @@ export function onRideDropDownChange() {
     }
 }
 
+/** Changes mode to manual and calls to process EIN change */
 export function onEINChange(textInput: string, which: einEnum) {
     changeMode("manual")
     processEINChange(textInput, which)
@@ -207,6 +208,7 @@ export function onCheckboxChange() {
     callCalcAndUpdatePrices()
 }
 
+/** Changes the mode the plugin is in */
 export function changeMode(newMode: String) {
     if (newMode === "manual") {
         viewModel.manualMode.set(true)
